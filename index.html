@@ -28,17 +28,6 @@
             align-items: center;
         }
 
-        .fullscreen-video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
         .error-message {
             color: white;
             font-family: sans-serif;
@@ -52,36 +41,69 @@
     </style>
 </head>
 <body class="bg-black">
-    <div class="video-container">
-        <!-- The video tag with autoplay, muted, and loop attributes -->
-        <video id="video-player" class="fullscreen-video" autoplay loop muted playsinline>
-            <!-- 
-                Replace this URL with the direct link to your video from Cloudinary or another hosting service.
-                This is the most critical step. GitHub is not reliable for this purpose.
-                Example: https://res.cloudinary.com/your-cloud-name/video/upload/v123456789/your-video-name.mp4
-            -->
-            <source src="https://res.cloudinary.com/dzme4yxun/video/upload/v1756286276/Whatsapp-Status_bc9n9e.mp4" type="video/mp4">
-            
-            Your browser does not support the video tag.
-        </video>
+    <div class="video-container" id="video-container">
+        <!-- The video will be injected here by JavaScript -->
+    </div>
 
-        <!-- An error message box that will be displayed if the video fails to load -->
-        <div id="error-box" class="error-message">
-            Unable to play video. Please check the video file URL and format.
-        </div>
+    <!-- An error message box that will be displayed if the video fails to load -->
+    <div id="error-box" class="error-message">
+        Unable to play video. Please check the video file URL and format.
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const videoPlayer = document.getElementById('video-player');
+            const videoContainer = document.getElementById('video-container');
             const errorBox = document.getElementById('error-box');
 
-            // Listen for errors on the video element
+            // --- Define the video URLs here ---
+            // The Cloudinary URL for the MP4 video.
+            const mp4Url = "https://res.cloudinary.com/dzme4yxun/video/upload/v1756295014/Whatsapp-Status_njq78w.mp4";
+            
+            // This is where you put the WebM link from a service like Convertio.
+            // You MUST upload the video and get a valid URL for it to work.
+            const webmUrl = "https://res.cloudinary.com/dzme4yxun/video/upload/v1756295011/Whatsapp-Status_gd8xgj.webm";
+
+
+            // --- Create a new video element dynamically ---
+            const videoPlayer = document.createElement('video');
+            videoPlayer.className = 'fullscreen-video';
+            videoPlayer.autoplay = true;
+            videoPlayer.loop = true;
+            videoPlayer.muted = true;
+
+            // Add the video source options for browser to choose from
+            // This is the correct way to handle multiple sources.
+            const sourceMp4 = document.createElement('source');
+            sourceMp4.src = mp4Url;
+            sourceMp4.type = 'video/mp4';
+            videoPlayer.appendChild(sourceMp4);
+
+            const sourceWebm = document.createElement('source');
+            sourceWebm.src = webmUrl;
+            sourceWebm.type = 'video/webm';
+            videoPlayer.appendChild(sourceWebm);
+
+            // --- Add styling to the dynamically created video element ---
+            Object.assign(videoPlayer.style, {
+                minWidth: '100%',
+                minHeight: '100%',
+                width: 'auto',
+                height: 'auto',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+            });
+
+            // --- Append the video element to the container in the HTML body ---
+            videoContainer.appendChild(videoPlayer);
+
+            // --- Add error handling ---
             videoPlayer.onerror = (e) => {
                 console.error('Video playback error:', e);
                 console.log('Error details:', videoPlayer.error);
 
-                // Display a user-friendly error message on the screen
+                // Hide the video element and show the error message
                 videoPlayer.style.display = 'none';
                 errorBox.style.display = 'block';
 
