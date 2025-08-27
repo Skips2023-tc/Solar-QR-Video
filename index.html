@@ -47,7 +47,7 @@
             padding: 2rem;
             background-color: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
-            display: none; /* Initially hidden */
+            display: none;
         }
     </style>
 </head>
@@ -56,18 +56,18 @@
         <!-- The video tag with autoplay, muted, and loop attributes -->
         <video id="video-player" class="fullscreen-video" autoplay loop muted playsinline>
             <!-- 
-                Replace this URL with the direct link to your video on GitHub.
-                Example: https://raw.githubusercontent.com/skips2023-tc/Solar-QR-Video/main/video.mp4
+                Replace this URL with the direct link to your video from Cloudinary or another hosting service.
+                This is the most critical step. GitHub is not reliable for this purpose.
+                Example: https://res.cloudinary.com/your-cloud-name/video/upload/v123456789/your-video-name.mp4
             -->
-            <source src="https://github.com/Skips2023-tc/Solar-QR-Video/blob/main/Whatsapp%20Status.mp4" type="video/mp4">
+            <source src="https://res.cloudinary.com/dzme4yxun/video/upload/v1756286276/Whatsapp-Status_bc9n9e.mp4" type="video/mp4">
             
-            <!-- Fallback text if the video element is not supported -->
             Your browser does not support the video tag.
         </video>
 
         <!-- An error message box that will be displayed if the video fails to load -->
         <div id="error-box" class="error-message">
-            Unable to play video. Please check the video file.
+            Unable to play video. Please check the video file URL and format.
         </div>
     </div>
 
@@ -85,7 +85,6 @@
                 videoPlayer.style.display = 'none';
                 errorBox.style.display = 'block';
 
-                // Log detailed error codes to help with debugging
                 switch (videoPlayer.error.code) {
                     case videoPlayer.error.MEDIA_ERR_ABORTED:
                         console.error('Video loading aborted by user.');
