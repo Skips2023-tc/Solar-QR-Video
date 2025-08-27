@@ -38,29 +38,23 @@
     </style>
 </head>
 <body class="bg-black">
-    <!-- 
-        This is the container for the full-screen video.
-        It uses Tailwind CSS classes for a clean, modern look.
-    -->
     <div class="video-container">
         <!-- 
-            The video tag is the key element here.
-            - autoplay: Starts the video automatically when the page loads.
-            - loop: Repeats the video from the beginning once it ends.
-            - muted: Mutes the video. Autoplay will not work on most browsers unless muted.
-            - playsinline: Ensures the video plays within the element, not in a new window on iOS.
+            The video tag now includes 'autoplay' and 'muted' attributes.
+            - autoplay: Starts the video automatically.
+            - loop: Repeats the video from the beginning.
+            - muted: This is CRITICAL. Autoplay will not work without it in most browsers.
+            - playsinline: Ensures the video plays within the element on iOS.
         -->
         <video class="fullscreen-video" autoplay loop muted playsinline>
             <!-- 
-                Replace the URL below with the direct Google Drive link you created.
-                Make sure the URL is in the special format to allow direct playback.
+                Replace the URL below with the direct link to your video file on GitHub.
+                It should look something like: https://raw.githubusercontent.com/skips2023-tc/Solar-QR-Video/main/your-video-name.mp4
             -->
             <source src="https://github.com/Skips2023-tc/Solar-QR-Video/blob/main/Whatsapp%20Status.mp4" type="video/mp4">
             
-            <!-- This text is shown if the user's browser doesn't support the video format -->
             Your browser does not support the video tag.
         </video>
     </div>
 </body>
 </html>
-
