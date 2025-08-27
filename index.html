@@ -23,39 +23,88 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .fullscreen-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             min-width: 100%;
             min-height: 100%;
             width: auto;
             height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .error-message {
+            color: white;
+            font-family: sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            display: none; /* Initially hidden */
         }
     </style>
 </head>
 <body class="bg-black">
     <div class="video-container">
-        <!-- 
-            The video tag now includes 'autoplay' and 'muted' attributes.
-            - autoplay: Starts the video automatically.
-            - loop: Repeats the video from the beginning.
-            - muted: This is CRITICAL. Autoplay will not work without it in most browsers.
-            - playsinline: Ensures the video plays within the element on iOS.
-        -->
-        <video class="fullscreen-video" autoplay loop muted playsinline>
+        <!-- The video tag with autoplay, muted, and loop attributes -->
+        <video id="video-player" class="fullscreen-video" autoplay loop muted playsinline>
             <!-- 
-                Replace the URL below with the direct link to your video file on GitHub.
-                It should look something like: https://raw.githubusercontent.com/skips2023-tc/Solar-QR-Video/main/your-video-name.mp4
+                Replace this URL with the direct link to your video on GitHub.
+                Example: https://raw.githubusercontent.com/skips2023-tc/Solar-QR-Video/main/video.mp4
             -->
-            <source src="https://github.com/Skips2023-tc/Solar-QR-Video/blob/main/Whatsapp-Status.mp4" type="video/mp4">
+            <source src="https://github.com/Skips2023-tc/Solar-QR-Video/blob/main/Whatsapp%20Status.mp4" type="video/mp4">
             
+            <!-- Fallback text if the video element is not supported -->
             Your browser does not support the video tag.
         </video>
+
+        <!-- An error message box that will be displayed if the video fails to load -->
+        <div id="error-box" class="error-message">
+            Unable to play video. Please check the video file.
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoPlayer = document.getElementById('video-player');
+            const errorBox = document.getElementById('error-box');
+
+            // Listen for errors on the video element
+            videoPlayer.onerror = (e) => {
+                console.error('Video playback error:', e);
+                console.log('Error details:', videoPlayer.error);
+
+                // Display a user-friendly error message on the screen
+                videoPlayer.style.display = 'none';
+                errorBox.style.display = 'block';
+
+                // Log detailed error codes to help with debugging
+                switch (videoPlayer.error.code) {
+                    case videoPlayer.error.MEDIA_ERR_ABORTED:
+                        console.error('Video loading aborted by user.');
+                        break;
+                    case videoPlayer.error.MEDIA_ERR_NETWORK:
+                        console.error('A network error caused the video download to fail.');
+                        break;
+                    case videoPlayer.error.MEDIA_ERR_DECODE:
+                        console.error('The video could not be decoded. This is likely a format or codec issue.');
+                        break;
+                    case videoPlayer.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                        console.error('The video format is not supported by the browser.');
+                        break;
+                    default:
+                        console.error('An unknown video error occurred.');
+                        break;
+                }
+            };
+        });
+    </script>
 </body>
 </html>
-
