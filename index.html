@@ -3,40 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video</title>
-    <!-- Use Tailwind CSS for easy styling. -->
+    <title>Solar Panel Video</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /*
-        This CSS ensures the video element takes up the entire screen,
-        without any visible scrollbars.
-        */
-        body {
-            @apply m-0 p-0;
+        /* This ensures the video fills the entire viewport */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
             background-color: #000;
         }
 
-        video {
-            @apply fixed top-0 left-0 w-full h-full object-contain;
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .fullscreen-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
         }
     </style>
 </head>
 <body class="bg-black">
-    <!--
-    The video tag is the core of this page.
-    - 'controls' shows the play/pause, volume, and full-screen buttons.
-    - 'autoplay' starts the video automatically (may require a user gesture on some browsers).
-    - 'playsinline' is crucial for mobile, allowing the video to play in the browser without automatically entering full-screen mode first.
+    <!-- 
+        This is the container for the full-screen video.
+        It uses Tailwind CSS classes for a clean, modern look.
     -->
-    <video controls autoplay playsinline>
-        <!--
-        IMPORTANT: Replace the placeholder URL below with your Google Drive video link.
-        You must use the direct link you found in the previous step.
+    <div class="video-container">
+        <!-- 
+            The video tag is the key element here.
+            - autoplay: Starts the video automatically when the page loads.
+            - loop: Repeats the video from the beginning once it ends.
+            - muted: Mutes the video. Autoplay will not work on most browsers unless muted.
+            - playsinline: Ensures the video plays within the element, not in a new window on iOS.
         -->
-        <source src="https://drive.google.com/uc?export=download&id=1yzqvvxWRZGT1eewWi_N8vJZlURUfqn-x">
-        Your browser does not support the video tag.
-    </video>
+        <video class="fullscreen-video" autoplay loop muted playsinline>
+            <!-- 
+                Replace the URL below with the direct Google Drive link you created.
+                Make sure the URL is in the special format to allow direct playback.
+            -->
+            <source src="https://drive.google.com/uc?export=download&id=1yzqvvxWRZGT1eewWi_N8vJZlURUfqn-x" type="video/mp4">
+            
+            <!-- This text is shown if the user's browser doesn't support the video format -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
 </body>
 </html>
-
-
