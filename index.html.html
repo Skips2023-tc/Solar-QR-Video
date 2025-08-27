@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <!-- Use Tailwind CSS for easy styling. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /*
+        This CSS ensures the video element takes up the entire screen,
+        without any visible scrollbars.
+        */
+        body {
+            @apply m-0 p-0;
+            background-color: #000;
+        }
+
+        video {
+            @apply fixed top-0 left-0 w-full h-full object-contain;
+        }
+    </style>
+</head>
+<body class="bg-black">
+    <!--
+    The video tag is the core of this page.
+    - 'controls' shows the play/pause, volume, and full-screen buttons.
+    - 'autoplay' starts the video automatically (may require a user gesture on some browsers).
+    - 'playsinline' is crucial for mobile, allowing the video to play in the browser without automatically entering full-screen mode first.
+    -->
+    <video controls autoplay playsinline>
+        <!--
+        IMPORTANT: Replace the placeholder URL below with your Google Drive video link.
+        You must use the direct link you found in the previous step.
+        -->
+        <source src="https://drive.google.com/file/d/1yzqvvxWRZGT1eewWi_N8vJZlURUfqn-x/preview" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</body>
+</html>
